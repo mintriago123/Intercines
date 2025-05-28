@@ -1,0 +1,17 @@
+
+services:
+  db:
+    image: postgres:16
+    container_name: postgres-intercines
+    ports:
+      - "5432:${DB_PORT}"    # Host:Contenedor
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db:/docker-entrypoint-initdb.d   # <--- Monta tus scripts de inicialización
+
+volumes:
+  pgdata:

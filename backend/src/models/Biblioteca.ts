@@ -1,23 +1,24 @@
-import { Entity, PrimaryGeneratedColumn, Column,  ManyToOne, JoinColumn} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, BaseEntity } from "typeorm";
 import { Usuario } from "./Usuario";
+import { Pelicula } from "./Pelicula";
+import { Serie } from "./Serie";
 
 @Entity()
-export class Biblioteca {
+export class Biblioteca extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @ManyToOne(() => Usuario)
+  @ManyToOne(() => Usuario, usuario => usuario.biblioteca, { eager: true })
   @JoinColumn({ name: "id_usuario" })
   usuario!: Usuario;
 
-  @Column()
-  id_usuario!: number;
+  @ManyToOne(() => Pelicula, { nullable: true, eager: true })
+  @JoinColumn({ name: "id_pelicula" })
+  pelicula?: Pelicula;
 
-  @Column({ nullable: true })
-  id_pelicula!: number;
-
-  @Column({ nullable: true })
-  id_serie!: number;
+  @ManyToOne(() => Serie, { nullable: true, eager: true })
+  @JoinColumn({ name: "id_serie" })
+  serie?: Serie;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   fecha_compra!: Date;

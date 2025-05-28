@@ -1,4 +1,5 @@
 // index.ts
+import "dotenv/config"; 
 import "reflect-metadata";
 import express from "express";
 import { AppDataSource } from "./data-source";
@@ -9,7 +10,7 @@ import bibliotecaRoutes from "./routes/biblioteca.routes";
 import carritoRoutes from "./routes/carrito.routes";
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
@@ -17,10 +18,10 @@ AppDataSource.initialize().then(() => {
   console.log("Conectado a la base de datos");
 
 app.use("/api/usuarios", usuarioRoutes);
-app.use("/peliculas", peliculaRoutes);
-app.use("/series", serieRoutes);
-app.use("/biblioteca", bibliotecaRoutes);
-app.use("/carrito", carritoRoutes);
+app.use("/api/peliculas", peliculaRoutes);
+app.use("/api/series", serieRoutes);
+app.use("/api/biblioteca", bibliotecaRoutes);
+app.use("/api/carrito", carritoRoutes);
 
   app.listen(PORT, () => console.log(`Servidor en http://localhost:${PORT}`));
 }).catch(err => {

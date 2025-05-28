@@ -1,11 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany } from "typeorm";
-import { Serie } from "./Serie";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany, BaseEntity } from "typeorm";
 import { Biblioteca } from "./Biblioteca";
-import { Pelicula } from "./Pelicula";
 import { Carrito } from "./Carrito";
 
 @Entity()
-export class Usuario {
+export class Usuario extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
@@ -27,9 +25,9 @@ export class Usuario {
   @Column({ default: false })
   is_admin!: boolean;
 
-  @OneToMany(() => Biblioteca, biblioteca => biblioteca.id_usuario)
+  @OneToMany(() => Biblioteca, biblioteca => biblioteca.usuario)
   biblioteca!: Biblioteca[];
 
-  @OneToMany(() => Carrito, carrito => carrito.id_usuario)
+  @OneToMany(() => Carrito, carrito => carrito.usuario)
   carrito!: Carrito[];
 }
