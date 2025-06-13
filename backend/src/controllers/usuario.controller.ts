@@ -12,7 +12,15 @@ const getSafeUser = (user: Usuario) => {
 
 // --- Helper functions for validations ---
 
-const isEmailValid = (email: string): boolean => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+// Compliant regex: linear time, avoids catastrophic backtracking
+const isEmailValid = (email: string): boolean =>
+  // - [^@]+        : one or more non-@ characters before @
+  // - @            : at
+  // - [^@.]+       : one or more non-@ and non-dot chars (domain)
+  // - \.           : dot
+  // - [a-zA-Z]{2,} : at least two alpha chars (TLD)
+  // This regex is safe and does not use nested or ambiguous quantifiers.
+  /^[^@]+@[^@.]+\.[a-zA-Z]{2,}$/.test(email);
 
 const isPasswordValid = (password: string): boolean => password.length >= 8;
 
