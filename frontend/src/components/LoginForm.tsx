@@ -16,12 +16,20 @@ const LoginForm: React.FC<Props> = ({ onLogin }) => {
 
   return (
     <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
-      <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Iniciar Sesión</h2>
-      
+      <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
+        Iniciar Sesión
+      </h2>
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm text-gray-600">Correo electrónico</label>
+          <label
+            htmlFor="email"
+            className="block text-sm text-gray-600"
+          >
+            Correo electrónico
+          </label>
           <input
+            id="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -32,8 +40,14 @@ const LoginForm: React.FC<Props> = ({ onLogin }) => {
         </div>
 
         <div>
-          <label className="block text-sm text-gray-600">Contraseña</label>
+          <label
+            htmlFor="password"
+            className="block text-sm text-gray-600"
+          >
+            Contraseña
+          </label>
           <input
+            id="password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
